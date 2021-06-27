@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+		<title>{% if page.title == "Home" %}{{ site.title }} - {{ site.tagline }}{% else %}{{ page.title }} - {{ site.title }}{% endif %}</title>
+		<link rel="shortcut icon" href="{{ '/assets/img/favicon.ico' | absolute_url }}">
+		<link rel="apple-touch-icon-precomposed" sizes="256x256" href="{{ '/assets/img/favicon.png' | absolute_url }}">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700%7CPT+Sans:400">
+		<link rel="stylesheet" href="{{ '/assets/css/top.css' | absolute_url }}">
+		<link rel="stylesheet" href="{{ '/assets/css/poole.css' | absolute_url }}">
+		<link rel="stylesheet" href="{{ '/assets/css/syntax.css' | absolute_url }}">
+		<link rel="stylesheet" href="{{ '/assets/css/lanyon.css' | absolute_url }}">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+		<script src='{{ site.baseurl }}/assets/js/toc.js'></script>
+		<script src='{{ site.baseurl }}/assets/js/top.js'></script>
+		<script type="text/javascript">
+			MathJax.Hub.Config({
+				tex2jax: {
+				  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				  inlineMath: [['$','$']],
+				  displayMath: [ ['$$','$$']]
+				}
+		  	});
+		  $(document).ready(function(){$('#toc').toc();});
+		</script>
+	</head>
+	<body>
+		<input type="checkbox" class="sidebar-checkbox" id="sidebar-checkbox">
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-item">
+				<p>{{ site.description }}</p>
+			</div>
+			<nav class="sidebar-nav">
+				{% assign pages_list = site.pages | sort:"url" %}
+				{% for node in pages_list %}
+					{% if node.title != null and node.layout == "page" %}
+						<a class="sidebar-nav-item{% if page.url == node.url %} active{% endif %}" href="{{ node.url | absolute_url }}">{{ node.title }}</a>
+					{% endif %}
+				{% endfor %}
+			</nav>
+			<div class="sidebar-item">
+				<p>&copy; {{ site.time | date: '%Y' }} All rights reserved.</p>
+			</div>
+		</div>
+		<div class="wrap">
+			<div class="masthead">
+				<div class="container">
+					<h3 class="masthead-title">
+					<a href="{{ site.baseurl }}/">{{ site.title }}</a>
+					<small>{{ site.tagline }}</small>
+					</h3>
+				</div>
+			</div>
+			<div class="container content">
+				{{ content }}
+			</div>
+		</div>
+		<label for="sidebar-checkbox" class="sidebar-toggle"></label>
+		<button onclick="topFunction()" id="top-button">Top</button>
+	</body>
+</html>

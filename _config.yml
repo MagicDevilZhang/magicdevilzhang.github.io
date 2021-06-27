@@ -1,0 +1,14 @@
+# Setup
+title: 'RyanCheung'
+tagline: 'Ignition sequence start'
+description: ''
+url: ''
+baseurl: ''
+permalink: pretty
+exclude: ["README.md"]
+
+# About
+author:
+  name: RyanCheung
+  url: https://www.magicdevil.net/
+  email: ryancheung98@163.com

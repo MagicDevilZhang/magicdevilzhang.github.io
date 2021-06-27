@@ -75,25 +75,39 @@ permalink: /docs/人工智能/DNN理论/机器学习任务攻略MLRecipe
 
 ## 调整训练集的总量、特征数量
 
-1.通过`Data augmentation`在原数据集上增量，常见的例如`CNN`中对图片进行放大。
+### Data Augmentation
+
+通过`Data Augmentation`在原数据集上增量，常见的例如`CNN`中对图片进行放大。
 
 ![image-20210626215353425](机器学习任务攻略MLRecipe.assets/image-20210626215353425.png)
 
-2.利用**半监督**学习`Semi-Supervisor`，在训练过程中增加训练集的数据量。
+### Semi-Supervisor
+
+利用**半监督**学习`Semi-Supervisor`，在训练过程中增加训练集的数据量。
 
 例如在`Classification`分类任务中，每个训练迭代器寻找`softmax`后**预测概率超过特定阈值**的数据用于下一轮训练。
 
-3.对特征`features`数量进行增加或删除。
+### Feature Engineering
 
-4.采用`Feature Normalization`特征归一化。
+对特征`features`数量进行增加或删除。
+
+### Feature Normalization
+
+采用`Feature Normalization`特征归一化。
+
+![image-20210627162447505](机器学习任务攻略MLRecipe.assets/image-20210627162447505.png)
 
 ## 模型Function/Model改进
 
-1.调整神经网络的深度和大小，通常`小模型=>大模型`进行测试。
+### Deep Neural
+
+调整神经网络的深度和大小，通常`小模型=>大模型`进行测试。
 
 ![image-20210626215411897](机器学习任务攻略MLRecipe.assets/image-20210626215411897.png)
 
-2.调整激活函数`Activation Function`，常见的激活函数：
+### Activation Function
+
+调整激活函数`Activation Function`，常见的激活函数：
 
 > - Sigmoid: $\sigma(x) = \frac{1}{1+e^{-x}}$
 > - ReLU: $\sigma(x) = max(0, b+wx)$
@@ -111,7 +125,7 @@ permalink: /docs/人工智能/DNN理论/机器学习任务攻略MLRecipe
 
 ![image-20210626215458053](机器学习任务攻略MLRecipe.assets/image-20210626215458053.png)
 
-3.使用`Dropout`层
+### Dropout
 
 Dropout在每一层中以概率$p$随机使某些神经元失效，使得神经网络更加thinner。
 > - 训练时`model.train()`，以概率$p$使某些神经元失效；
@@ -123,14 +137,22 @@ Dropout在每一层中以概率$p$随机使某些神经元失效，使得神经�
 
 ![image-20210626215543479](机器学习任务攻略MLRecipe.assets/image-20210626215543479.png)
 
+### Residual Block
+
+将神经网络拆分成Block块，每个块到下一个块的路径有两条，一条是经过神经网络后到达，另一条路径是输入向量直接到达下一个残差块。将两条路径输出的向量拼接到一个向量传递到下一个Block。以此可以消除Model Bias的问题。残差块的应用如ResNet，在加深神经网络的时候，解决网络退化的问题。关于ResNet和Residual Block的理解可以参照[李沐ResNet](https://www.bilibili.com/video/BV1bV41177ap)讲解。
+
+![image-20210627161941388](机器学习任务攻略MLRecipe.assets/image-20210627161941388.png)
+
 ## 损失函数Loss改进
 
-1.选择合适的`Loss Function`
+### Loss Function
+
+选择合适的`Loss Function`
 
 > - Regression : MSE / RMSE
 > - Classification: CrossEntropy
 
-2.采用L2 Regularization正则化
+### Regularization正则化
 
 L2正则化可以使Loss损失函数下降的更加平缓，不容易出现过拟合的现象。
 
@@ -142,18 +164,24 @@ L2正则化可以使Loss损失函数下降的更加平缓，不容易出现过�
 
 ## 优化器Optimization改进
 
-1.使用`SGD`时，可以对`learning rate`和`momentum`进行优化，其两参数的具体数学含义可以见梯度下降介绍。
+### Learning Rate & Momentum
+
+使用`SGD`时，可以对`learning rate`和`momentum`进行优化，其两参数的具体数学含义可以见梯度下降介绍。
 
 ```
 learning rate <= 0.01
 momentum = 0.8 ~ 0.9
 ```
 
-2.在SGD不能给出比较好的下降效果时，可以考虑使用`Adam`进行**自适应的learning rate**下降。
+### Adam
+
+在SGD不能给出比较好的下降效果时，可以考虑使用`Adam`进行**自适应的learning rate**下降。
 
 ## 训练过程Training Process改进
 
-1.调整`epochs`迭代次数以及`batch size`批大小
+### Epochs & BatchSize
+
+调整`epochs`迭代次数以及`batch size`批大小
 
 通常epochs的次数不易过大，否则会出现过拟合问题；
 
@@ -176,7 +204,7 @@ minima有更好的容错区间，下图阐释了这样的现象：
 
 ![image-20210626215737824](机器学习任务攻略MLRecipe.assets/image-20210626215737824.png)
 
-2.采用`early-stop`机制
+### early-stop
 
 通常在训练迭代过程中，为了防止过拟合Overfitting，可以在验证集损失持续某段时间后立即终止迭代。
 
@@ -185,7 +213,7 @@ minima有更好的容错区间，下图阐释了这样的现象：
 # 参考链接
 
 > - [机器学习任务攻略（李宏毅）2021 PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2021-course-data/overfit-v6.pdf)
-> - [机器学习任务攻略（李宏毅）2021 Youtube](https://www.youtube.com/watch?v=WeHM2xpYQpw)
+> - [机器学习任务攻略（李宏毅）2021 YouTube](https://www.youtube.com/watch?v=WeHM2xpYQpw)
 > - [机器学习任务攻略（李宏毅）2021 Bilibili](https://www.bilibili.com/video/BV1Wv411h7kN?p=10)
 > - [神经网络任务攻略（李宏毅）2017 PDF](https://speech.ee.ntu.edu.tw/~tlkagk/courses/ML_2017/Lecture/DNN%20tip.pdf)
-> - [神经网络任务攻略（李宏毅）2020 Youtube](https://www.youtube.com/watch?v=xki61j7z-30)
+> - [神经网络任务攻略（李宏毅）2020 YouTube](https://www.youtube.com/watch?v=xki61j7z-30)

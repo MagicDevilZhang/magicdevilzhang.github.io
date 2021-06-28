@@ -1,6 +1,6 @@
 # MagicDevil-Ryan-Blog
 
-That is the my self-blog system for study & personal resources review. The blog is based on the [Lanyon](https://github.com/poole/lanyon). If you like, you may copy and use it for free. If your are beginner, you can also get your own blog system as follows.
+That is my self-blog system for study & personal resources review. The blog is based on the [Lanyon](https://github.com/poole/lanyon). If you like, you may copy and use it. If your are beginner, you can also get your own blog system as follows.
 
 # Clone Code
 
@@ -10,7 +10,7 @@ git clone https://github.com/MagicDevilZhang/magicdevilzhang.github.io.git
 
 # Write Markdown
 
-You can use `Typora` to write your own markdown document by following the standard example.
+`Typora` could be used to write your own markdown document by following the standard example.
 
 ## Typora
 
@@ -50,10 +50,10 @@ If the layout is `page`, it will be added into the menu bar to show as a web pag
 
 ## Images in Markdown
 
-You can save the image in local and use it or use the PicGo to save images in website, and follow the markdown rules to incite the images like `![image-001](./hello.assests/image-001.png)`  .
+Images should be saved in local or PicGo, incited in your markdown documents by relative path like `![image-001](./hello.assests/image-001.png)`  .
 
-If you save the images in local and use it by relative path, there are always exists some unused in your document. You can use the `./scripts/imgs-unused.py` to find them by `$ python3 ./scripts/imgs-unused.py ./docs/`.
+If the images were saved in local, there are always exist some unused in your document. Using  `./scripts/imgs-unused.py` to search them out by `$ python3 ./scripts/imgs-unused.py ./docs/`.
 
 # Upload to GitHub
 
-You can follow the roles of [GitHub Page](https://pages.github.com/) to deploy your blog, and the markdown files can be parsed as html in Jekyll server.
+Following the roles of [GitHub Page](https://pages.github.com/) to deploy your blog, by which the markdown files can be parsed as static htmls in Jekyll server.

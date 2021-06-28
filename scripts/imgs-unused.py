@@ -31,7 +31,7 @@ def find_unused_imgs(root_path: str) -> List[str]:
     img_paths = _find_files(root_path, img_exts)
 
     for doc_path in doc_paths:
-        with open(doc_path, 'r') as fp:
+        with open(doc_path, 'r', encoding='UTF-8') as fp:
             doc_data = fp.read()
             used_imgs_path = []
             for img_path in img_paths:
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     unused_imgs = find_unused_imgs(docs_path)
 
-    if len(unused_imgs) is 0:
+    if len(unused_imgs) == 0:
         print("There is no unused image in '{}'.".format(docs_path))
     else:
         print("There are {} unused images in '{}':".format(len(unused_imgs), docs_path))

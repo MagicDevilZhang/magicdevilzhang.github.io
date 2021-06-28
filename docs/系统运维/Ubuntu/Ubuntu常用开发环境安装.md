@@ -26,6 +26,6 @@ sudo update-alternatives --config  java     #选择Java默认版本
 
 ```
 sudo apt install python
-sudo apt install python3
+sudo apt install python3.8
 sudo update-alternatives --config python    #选择Python默认版本
 ```

@@ -1,10 +1,10 @@
 ---
 layout: post
-title: Ubunut镜像源
-permalink: /docs/系统运维/Ubuntu/Ubunut镜像源
+title: Ubuntu镜像源
+permalink: /docs/系统运维/Ubuntu/Ubuntu镜像源
 ---
 
-- Ubunut镜像源
+- Ubuntu镜像源
 
 > - [阿里云镜像源](https://developer.aliyun.com/special/mirrors/notice)
 > - [清华大学镜像源](https://mirror.tuna.tsinghua.edu.cn/help/ubuntu/)

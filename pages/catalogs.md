@@ -41,7 +41,7 @@ permalink: /notebook
 
 ## Ubuntu
 
-- [Ubuntu镜像源](/docs/系统运维/Ubuntu/Ubunut镜像源)
+- [Ubuntu镜像源](/docs/系统运维/Ubuntu/Ubuntu镜像源)
 - [Ubuntu常用指令汇总](/docs/系统运维/Ubuntu/Ubuntu常用指令汇总)
 - [Ubuntu常用开发环境安装](/docs/系统运维/Ubuntu/Ubuntu常用开发环境安装)
 - [Ubuntu修改虚拟内存大小](/docs/系统运维/Ubuntu/Ubuntu修改虚拟内存大小)

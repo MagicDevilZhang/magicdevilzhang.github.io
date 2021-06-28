@@ -28,6 +28,7 @@ permalink: /docs/系统运维/Ubuntu/Ubuntu常用指令汇总
 - 删除： `rm -f filepath`
 - 查找： `find path -type FileType -name '*.*' `
 - 创建目录： `mkdir -p name`
+- 创建软连接：`ln -s source target`
 - 查看当前目录：`ll -rt` 其中`-r`是倒置，`-t`按时间排序
 
 # 权限指令

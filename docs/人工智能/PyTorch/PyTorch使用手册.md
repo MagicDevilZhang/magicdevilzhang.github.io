@@ -3,16 +3,65 @@ layout: post
 title: PyTorch使用手册
 permalink: /docs/人工智能/PyTorch/PyTorch使用手册
 ---
+# 安装PyTorch
 
-# PyTorch使用手册
-> - [PyTorch 官方文档](https://pytorch.org/docs/stable/index.html)
-> - [李宏毅 Pytorch Tutorial](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2021-course-data/hw/Pytorch/Pytorch_Tutorial_1.pdf)
-> - [李宏毅 PyTorch Youtube 视频课](https://www.youtube.com/watch?v=8DaeP2vSu90)
-> - [李宏毅 PyTorch Bilibili 视频课](https://www.bilibili.com/video/BV1Wv411h7kN?p=5)
+PyTorch推荐安装在Anaconda环境下，以利于不同版本的维护。
 
-## 基本数据结构Tensor
+- 下载Anaconda
 
-### 构造Constructor
+```
+https://www.anaconda.com/products/individual
+```
+
+- 配置国内镜像源
+
+可以在Anaconda Navigator的Channels中添加如下镜像源：
+
+```
+https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+# 阿里云 http://mirrors.aliyun.com/pypi/simple/
+# 中国科技大学 https://pypi.mirrors.ustc.edu.cn/simple/ 
+# 豆瓣(douban) http://pypi.douban.com/simple/ 
+# 清华大学 https://pypi.tuna.tsinghua.edu.cn/simple/
+# 中国科学技术大学http://pypi.mirrors.ustc.edu.cn/simple/
+```
+
+- 创建虚拟环境
+
+若使用GUI界面，可在Environments中直接新建，推荐使用命令行，可以按如下步骤新建：
+
+```
+conda create -n conda-pytorch python=3.8
+```
+
+- 安装依赖库
+
+```
+# 安装Jupyter Notebook
+conda install jupyter notebook 
+conda install Cython #pip3 install Cython
+
+# 代码提示
+pip3 install jupyter_contrib_nbextensions
+jupyter contrib nbextension install --user
+pip3 install jupyter_nbextensions_configurator
+jupyter nbextensions_configurator enable --user
+
+# 安装 PyTorch
+conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
+```
+
+- 设置Jupyter默认目录
+
+修改`~/.jupyter/jupyter_notebook_config.py`文件
+
+```
+c.NotebookApp.notebook_dir = u'E:\\conda-ml'
+```
+
+# 基本数据结构Tensor
+
+## 构造Constructor
 
 ```python
 # From list / NumPy array
@@ -26,7 +75,7 @@ x = torch.zeros([2, 2])
 x = torch.ones([1, 2, 5])
 ```
 
-### 操作Operators
+## 操作Operators
 
 - `squeeze(arg)`: 表示第arg维的维度值为1，则去掉该维度。否则tensor不变。（即若tensor.shape()[arg] = 1，则去掉该维度）
 
@@ -103,11 +152,9 @@ x = x.to('cuda')
 tensor([[ 2., 0.], [-2., 2.]])
 ```
 
-![](/imgs/2021/5/009.png)
 
 ## PyTorch训练DNN过程
 
-![](/imgs/2021/5/010.png)
 
 ### 定义Dataset & Dataloader
 
@@ -129,10 +176,10 @@ dataset = MyDataset(file)
 dataloader = DataLoader(dataset, batch_size, shuffle=True)
 ```
 
-![](/imgs/2021/5/011.png)
 
 
-### 定义Neural Network Layers
+
+## 定义Neural Network Layers
 
 ```python
 import torch.nn as nn
@@ -157,7 +204,7 @@ class MyModel(nn.Module):
 torch.optim.SGD(model.parameters(), lr=0.01, momentum=0.9)
 ```
 
-### 训练过程Trainning
+## 训练过程Trainning
 
 ```python
 dataset = MyDataset(file)
@@ -315,3 +362,9 @@ preds = torch.cat(preds, dim=0).numpy()
 print(preds)
 
 ```
+
+# 参考链接
+- [PyTorch 官方文档](https://pytorch.org/docs/stable/index.html)
+- [李宏毅 Pytorch Tutorial](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2021-course-data/hw/Pytorch/Pytorch_Tutorial_1.pdf)
+- [李宏毅 PyTorch Youtube 视频课](https://www.youtube.com/watch?v=8DaeP2vSu90)
+- [李宏毅 PyTorch Bilibili 视频课](https://www.bilibili.com/video/BV1Wv411h7kN?p=5)

@@ -16,8 +16,8 @@ Hadoop从2.x开始，原生组件主要为如下：
 并且对于Hadoop集群中的每个主机，又可以分为如下身份：
 
 - HDFS
-    - NameNode: 存储分布式数据的元数据(metadata)
-    - Secondary NameNode: 是NameNode节点的辅助节点
+    - NameNode: 可以在内存中存储分布式数据的元数据(metadata)
+    - Secondary NameNode: 是NameNode节点的辅助节点，可以定期合并FSImage和Edits
     - DataNode: 存储具体的分布式数据内容的节点
 - Yarn
     - ResourceManager: 资源分配调度的主节点

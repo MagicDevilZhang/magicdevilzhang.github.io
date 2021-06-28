@@ -1,3 +1,9 @@
+---
+layout: post
+title: Ubuntu修改网络和系统配置
+permalink: /docs/系统运维/Ubuntu/Ubuntu修改网络和系统配置
+---
+
 # 修改主机名
 
 ```
@@ -20,7 +26,7 @@ sudo vim /etc/hosts
 sudo shutdown now -r
 ```
 
-# 修改NetPlan
+# 修改网卡NetPlan
 
 ```
 sudo vim /etc/netplan/00-installer-config.yaml

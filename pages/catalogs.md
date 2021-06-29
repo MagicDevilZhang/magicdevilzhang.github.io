@@ -61,7 +61,7 @@ permalink: /notebook
 ## Hadoop
 
 - [Hadoop安装与配置](/docs/数据开发/Hadoop/Hadoop安装与配置)
-- [HDFS概念和使用](../docs/数据开发/Hadoop/HDFS概念和使用.md)
+- [HDFS概念和使用](/docs/数据开发/Hadoop/HDFS概念和使用)
 
 ## Kafka
 

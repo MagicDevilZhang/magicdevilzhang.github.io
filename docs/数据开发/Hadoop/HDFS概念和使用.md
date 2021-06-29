@@ -1,3 +1,11 @@
+---
+layout: post
+title: HDFS概念和使用
+permalink: /docs/数据开发/Hadoop/HDFS概念和使用
+---
+
+
+
 # HDFS的基本概念
 
 HDFS(Hadoop Distributed File System) Hadoop分布式文件系统，适用于将大型文件分发到不同的节点上。
@@ -41,7 +49,7 @@ Example：
 ./bin/hdfs dfs -put localfile hdfs://hadoop-vm-1:9000/
 ```
 
-其他更多的Hadoop HDFS命令行操作，可以参考[官方手册](http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-hdfs/HDFSCommands.html)。
+其他更多的Hadoop HDFS命令行操作，可以参考[官方手册](http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/FileSystemShell.html)。
 
 # HDFS的Java API操作
 

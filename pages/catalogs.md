@@ -20,6 +20,8 @@ permalink: /notebook
 - [Python快速使用手册](/docs/编程开发/Python/Python快速使用手册)
 - [Matplotlib组件使用](/docs/编程开发/Python/Matplotlib组件使用)
 
+
+
 # 开发工具
 
 ## 在线平台
@@ -37,6 +39,8 @@ permalink: /notebook
 - [Katex在线编辑器](https://katex.org/)
 - [Katex使用手册](https://katex.org/docs/supported.html)
 
+
+
 # 系统运维
 
 ## Ubuntu
@@ -51,6 +55,8 @@ permalink: /notebook
 
 - [Docker指令手册](/docs/系统运维/Docker/Docker指令手册)
 
+
+
 # 数据开发
 
 ## MySQL
@@ -62,6 +68,11 @@ permalink: /notebook
 
 - [Hadoop安装与配置](/docs/数据开发/Hadoop/Hadoop安装与配置)
 - [HDFS概念和使用](/docs/数据开发/Hadoop/HDFS概念和使用)
+
+## Flink
+
+- [Flink原理概述](/docs/数据开发/Flink/Flink原理概述)
+- [Flink集群安装](/docs/数据开发/Flink/Flink集群安装)
 
 ## Kafka
 
@@ -85,6 +96,8 @@ permalink: /notebook
 
 - [HUE安装及部署](/docs/数据开发/Hue/HUE安装及部署)
 - [HUE集成FlinkSQL](/docs/数据开发/Hue/HUE集成FlinkSQL)
+
+
 
 # 人工智能
 

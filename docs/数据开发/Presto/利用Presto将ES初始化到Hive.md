@@ -116,6 +116,14 @@ CREATE TABLE hive.es_database.octopus_test WITH ( format = 'parquet' ) AS
 ```
 DESC hive.es_database.octopus_test;
 SELECT * FROM hive.es_database.octopus_test;
+
+# 含有数组
+SELECT * FROM (
+  SELECT t.*, c.`ischange`, c.`value`, c.`location`
+  FROM 
+    es_database.octopus_test AS t
+    LATERAL VIEW explode(cells) tab AS c
+) a;
 ```
 
 Column|    Type 

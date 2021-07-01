@@ -107,7 +107,7 @@ java -jar presto-cli.jar --server localhost:8880
 # INSERT INTO hive.es_database.octopus_test
 #  SELECT COUNT(*) FROM elasticsearch.default.octopus WHERE ...;
 
-CREATE TABLE hive.es_database.octopus_test AS 
+CREATE TABLE hive.es_database.octopus_test WITH ( format = 'parquet' ) AS 
   SELECT COUNT(*) FROM elasticsearch.default.octopus;
 ```
 
@@ -115,31 +115,31 @@ CREATE TABLE hive.es_database.octopus_test AS
 
 ```
 DESC hive.es_database.octopus_test;
-SELECT COUNT(*) FROM hive.es_database.octopus_test;
+SELECT * FROM hive.es_database.octopus_test;
 ```
 
-|    Column     |                             Type                             |
----------------|---------------------------------------------------------------
-@timestamp    | timestamp
-@version      | varchar
-areaid        | varchar
-areaname      | varchar
-boxid         | varchar
-**cells**     | **array(row(ischange varchar, location varchar, value varchar))**
-createtime    | varchar
-dzqyid        | varchar
-dzqyname      | varchar
-fetchdatatime | bigint
-id            | varchar
-kjnd          | varchar
-kjqj          | varchar
-nsqxdm        | varchar
-parentboxid   | varchar
-qyid          | varchar
-qyname        | varchar
-sbszid        | varchar
-sheetname     | varchar
-systemid      | varchar
+Column|    Type 
+---------------|---------------------------------------------------------------|
+@timestamp    | timestamp||
+@version      | varchar||
+areaid        | varchar||
+areaname      | varchar||
+boxid         | varchar||
+**cells**     | **array(row(ischange varchar, location varchar, value varchar))**||
+createtime    | varchar||
+dzqyid        | varchar||
+dzqyname      | varchar||
+fetchdatatime | bigint||
+id            | varchar||
+kjnd          | varchar||
+kjqj          | varchar||
+nsqxdm        | varchar||
+parentboxid   | varchar||
+qyid          | varchar||
+qyname        | varchar||
+sbszid        | varchar||
+sheetname     | varchar||
+systemid      | varchar||
 
 # 参考连接
 

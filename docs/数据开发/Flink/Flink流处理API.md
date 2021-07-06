@@ -1,3 +1,9 @@
+---
+layout: post
+title: Flink流处理API
+permalink: /docs/数据开发/Flink/Flink流处理API
+---
+
 # Environment
 
 对于Bounded有界流数据，可以采用`ExecutionEnvironment`创建执行环境；对于Unbounded无界流数据，可以采用`StreamExecutionEnvironment`创建。具体创建方法如下：

@@ -131,7 +131,19 @@ Flink消费Kafka时支持分区偏移量**、**checkpoint容错**、**分区发�
 
 # Transform
 
+|        Transform Type         |                   Function Meaning                   |                           Comment                            |
+| :---------------------------: | :--------------------------------------------------: | :----------------------------------------------------------: |
+|          MapFunction          |                 [□□□] → map → [●●●]                  |                       将数据一对一转换                       |
+|        FlatMapFunction        |                [□] → flatMap → [●●●]                 |                       将数据一对多转换                       |
+|        FilterFunction         |                [□□□] → filter → [□□]                 |                        将数据进行过滤                        |
+|             KeyBy             |              [□□□] → keyBy → [{□},{□□}]              |    将数据进行分类并重分区 **(DataStream → KeyedStream)**     |
+|      Rolling Aggregation      | [{□},{□□}] → sum\|min\|max\|minBy\|maxBy → [{□},{□}] | 将分组后的数据进行**滚动聚合** **(KeyedStream → DataStream)** |
+|        ReduceFunction         |           [{□},{□□}] → reduce → [{●},{●}]            |  将分组后的数据进行**规约** **(KeyedStream → DataStream)**   |
+| Split&Select (OutputSelector) |            [□□□] → split&select  → [□,□□]            | 将**数据流**拆分成多个组，可以理解为给数据流盖戳 **(DataStream → SplitedStream)** |
+|         Connect&CoMap         |            [□,●●] → connect&coMap → [□●●]            | 将2个数据流合并到一个数据流 **(DataStreams → ConnectedStream)** |
+|             Union             |              [□,□,□□] → union → [□□□□]               | 将多条数据类型相同的数据流合并成一条流 **(DataStreams → DataStream)** |
 
+*补各种DataStream转换图*
 
 # Sink
 

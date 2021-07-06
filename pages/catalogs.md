@@ -97,7 +97,7 @@ permalink: /notebook
 - [HUE安装及部署](/docs/数据开发/Hue/HUE安装及部署)
 - [HUE集成FlinkSQL](/docs/数据开发/Hue/HUE集成FlinkSQL)
 
-# Elasticsearch
+## Elasticsearch
 
 - [Elasticsearch安装与部署](/docs/数据开发/ElasticSearch/Elasticsearch安装与部署)
 

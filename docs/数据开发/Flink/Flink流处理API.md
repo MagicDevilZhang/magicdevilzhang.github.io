@@ -145,5 +145,54 @@ Flink消费Kafka时支持分区偏移量**、**checkpoint容错**、**分区发�
 
 *补各种DataStream转换图*
 
+
+
 # Sink
+
+## Kafka Sink
+
+- 引入flink-connector-kafka组件
+
+```xml
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka_${scala.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+```
+
+- 向Kafka生产数据
+
+```java
+        Properties properties = new Properties() {{
+            this.setProperty("bootstrap.servers", "172.37.4.156:9092");
+            this.setProperty("group.id", "flink-kafka");
+            this.setProperty("key.deserializer", StringDeserializer.class.toString());
+            this.setProperty("value.deserializer", StringDeserializer.class.toString());
+        }};
+
+        FlinkKafkaConsumer<String> kafkaConsumer = new FlinkKafkaConsumer<>(
+                "demo-topic",
+                new SimpleStringSchema(),
+                properties
+        );
+        kafkaConsumer.setStartFromEarliest();     // 尽可能从最早的记录开始
+        kafkaConsumer.setStartFromLatest();       // 从最新的记录开始
+        kafkaConsumer.setStartFromTimestamp(1000); // 从指定的时间开始（毫秒）
+        kafkaConsumer.setStartFromGroupOffsets(); // 默认的方法
+
+        DataStream<String> streamSource = env.addSource(kafkaConsumer).shuffle();
+
+        streamSource.addSink(new FlinkKafkaProducer<String>(
+                properties.getProperty("bootstrap.servers"), //Kafka地址
+                "sink-test", //Kafka Topic名称
+                new SimpleStringSchema() //序列器
+        ));
+```
+
+
+
+# 参考链接
+
+- [Flink数据源官方文档](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/connectors/datastream/overview/)
 

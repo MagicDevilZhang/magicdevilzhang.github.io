@@ -230,7 +230,7 @@ Flink消费Kafka时支持分区偏移量**、**checkpoint容错**、**分区发�
                 .countWindow(100,50); // 滑动计数窗口
 ```
 
-## Window Function 窗口函数
+## Window Function
 
 Window Function定义了要对窗口收集的数据进行计算的操作（keyBy后的聚合操作），可以分为如下两类：
 
@@ -240,7 +240,67 @@ Window Function定义了要对窗口收集的数据进行计算的操作（keyBy
 - 全窗口函数（Full Window Function)
   - 先把窗口内的数据收集起来（称为**保存状态State**），等到计算时在遍历窗口内的所有数据，如: ProcessWindowFunction, WindowFunction
 
+```java
+		// ReduceFunction
+        inputSource.keyBy("id")
+                .timeWindow(Time.minutes(5))
+                .reduce(new ReduceFunction<String>() {
+                    @Override
+                    public String reduce(String value1, String value2) throws Exception {
+                        return null;
+                    }
+                });
 
+        // AggregateFunction
+        inputSource.keyBy("id")
+                .timeWindow(Time.minutes(5))
+                .aggregate(new AggregateFunction<String, Integer, Integer>() {   //AggregateFunction<IN, ACCUMLATOR, OUT>
+                    @Override
+                    public Integer createAccumulator() {
+                        return null;
+                    }
+
+                    @Override
+                    public Integer add(String value, Integer accumulator) {
+                        return null;
+                    }
+
+                    @Override
+                    public Integer getResult(Integer accumulator) {
+                        return null;
+                    }
+
+                    @Override
+                    public Integer merge(Integer a, Integer b) {
+                        return null;
+                    }
+                });
+
+        // WindowFunction
+        inputSource.keyBy("id")
+                .timeWindow(Time.minutes(5))
+                .apply(new WindowFunction<String, Integer, Tuple, TimeWindow>() { //WindowFunction<IN, OUT, KEY, W extends Window>
+                    @Override
+                    public void apply(
+                            Tuple tuple,
+                            TimeWindow window,
+                            Iterable<String> input,
+                            Collector<Integer> out) throws Exception {
+                        Integer count = IteratorUtils.toList(input.iterator()).size();
+                        out.collect(count);
+                    }
+                });
+```
+
+## 其他API
+
+- `trigger()`触发器，定义了window什么时候关闭，触发计算并输出结果
+- `evitor()`移除器，定义了移除某些数据的逻辑
+- `allowOutputLateness()`允许处理迟到的数据
+- `sideOutputLateDate`将迟到的数据放入旁路输出流
+- `getSideOutput()`获取旁路输出流
+
+![image-20210707151928542](Flink流处理API.assets/image-20210707151928542.png)
 
 
 

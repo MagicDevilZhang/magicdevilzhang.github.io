@@ -73,6 +73,7 @@ permalink: /notebook
 
 - [Flink原理概述](/docs/数据开发/Flink/Flink原理概述)
 - [Flink集群安装](/docs/数据开发/Flink/Flink集群安装)
+- [Flink流处理API](/docs/数据开发/Flink/Flink流处理API)
 
 ## Kafka
 

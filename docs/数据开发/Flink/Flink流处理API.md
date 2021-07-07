@@ -192,6 +192,58 @@ Flink消费Kafka时支持分区偏移量**、**checkpoint容错**、**分区发�
 
 
 
+# Window
+
+- 时间窗口（Time Window）
+  - [滚动时间窗口（Tumbling Windows）](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/dev/datastream/operators/windows/#tumbling-windows)：时间对齐，窗口长度固定，**没有重叠**；
+  - [滑动时间窗口（Sliding Windows）](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/dev/datastream/operators/windows/#sliding-windows)：窗口长度固定，可以**有重叠**，某个数据同时属于（window size / window slide）；
+  - [会话窗口（Session Windows）](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/dev/datastream/operators/windows/#session-windows)：一段时间（timeout）没有接受到数据就会产生新的会话窗口，**时间不对齐**。
+- 计数窗口（Count Window）
+  - [滚动计数窗口](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/dev/datastream/operators/windows/#global-windows)
+  - [滑动计数窗口](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/dev/datastream/operators/windows/#global-windows)
+
+## Window API
+
+窗口分配器`window()`方法应当在`keyBy`后使用：
+
+```java
+        // Note: This operation is inherently non-parallel since all elements have to pass through the same operator instance.
+        // 全部数据会汇总到一起做window开窗操作，相当于global()的分区，不推荐使用
+        inputSource.windowAll(
+                TumblingEventTimeWindows.of(Time.minutes(1))
+        );
+
+        inputSource
+                .keyBy("id")
+                .window(TumblingEventTimeWindows.of(Time.minutes(1))); // 滚动时间窗口，可直接使用.timeWindow(...)
+
+        inputSource
+                .keyBy("id")
+                .window(EventTimeSessionWindows.withGap(Time.minutes(1))); // 会话时间窗口
+
+        inputSource
+                .keyBy("id")
+                .countWindow(100); // 滚动计数窗口
+
+        inputSource
+                .keyBy("id")
+                .countWindow(100,50); // 滑动计数窗口
+```
+
+## Window Function 窗口函数
+
+Window Function定义了要对窗口收集的数据进行计算的操作（keyBy后的聚合操作），可以分为如下两类：
+
+- 增量聚合函数（Incremental Aggregation Functions）
+  - 每条数据到来就计算，保持简单状态，如: ReduceFunction, AggregateFunction
+
+- 全窗口函数（Full Window Function)
+  - 先把窗口内的数据收集起来（称为**保存状态State**），等到计算时在遍历窗口内的所有数据，如: ProcessWindowFunction, WindowFunction
+
+
+
+
+
 # 参考链接
 
 - [Flink数据源官方文档](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/connectors/datastream/overview/)

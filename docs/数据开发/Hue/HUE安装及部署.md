@@ -64,6 +64,25 @@ sudo ./build/env/bin/hue runserver 0.0.0.0:8000
 
 # 问题
 
+## 查看用户查询次数
+
+```sql
+select
+    user.id as id,
+    user.username as username,
+    document.extra as notebook,
+    count(document.id) as cnt
+from
+    hue.auth_user as user left outer join hue.desktop_document as document
+    on user.id = document.owner_id
+where
+    document.last_modified > '2021-01-01'
+group by user.id,user.username,document.extra
+order by cnt desc;
+```
+
+
+
 # 参考链接
 
 > - [HUE官方使用手册](https://docs.gethue.com/)

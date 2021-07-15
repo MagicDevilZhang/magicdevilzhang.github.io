@@ -20,6 +20,8 @@ StreamExecutionEnvironment.createRemoteEnvironment(hostname,port,jars);
 StreamExecutionEnvironment.getExecutionEnvironment(); // 自动识别当前执行环境并实例化执行环境对象【推荐】
 ```
 
+
+
 # Source
 
 ## 从集合中读取数据
@@ -144,6 +146,69 @@ Flink消费Kafka时支持分区偏移量**、**checkpoint容错**、**分区发�
 |             Union             |              [□,□,□□] → union → [□□□□]               | 将多条数据类型相同的数据流合并成一条流 **(DataStreams → DataStream)** |
 
 *补各种DataStream转换图*
+
+## 时间语义
+
+Flink 时间语义指的是处理数据时，对数据时间戳进行归类：
+
+- ProcessingTime: 处理时间，指的是数据被处理的时间；
+- EventTime: 事件时间，指的是数据产生时自带的时间；
+- IngestionTime: 摄入时间，指的是数据读入到Flink的时间。
+
+```java
+        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.setStreamTimeCharacteristic(TimeCharacteristic.EventTime);
+```
+
+## Watermark水位线
+
+当采用EventTime事件时间时，数据到来的事件时间可能是乱序的，为了处理此问题引出Watermark概念。例如，某学校大部分学生能在9:05分前到，而班车发车时间是9:00，因此为了能够使大部分同学上车，就将司机手表时间调慢5分钟。
+
+![image-20210712155915820](Flink流处理API.assets/image-20210712155915820.png)
+
+Watermark具有如下特点：
+
+1. Watermark是一条特殊的数据记录；
+2. Watermark必须**单调递增**，以保证事件时间的时钟向前推进，而不是时间倒退；
+3. Watermark与数据的时间戳相关。
+
+Watermark本质也是一个StreamElement，它是数据流中的一个与数据时间戳相关的数据记录。当我们设置延迟时间和窗口时间都是3s时，对于上列的数据，其watermark的次序为：
+
+![image-20210712162714666](Flink流处理API.assets/image-20210712162714666.png)
+
+另外Watermark作为时间戳需要同时通知下游任务，因此从上游角度来说，Watermark需要广播给下游；而从下游角度来看，当接收到不同上游的不同Watermark，其保证的是上游Watermark时间戳的任务已经完成，因此对于下游来说它应该取最小的Watermark，象征最小的Watermark之前的任务已经处理完成。
+
+![image-20210712163612206](Flink流处理API.assets/image-20210712163612206.png)
+
+flink主要提供了两种Watermark，即：
+
+- forMonotonousTimestamps (AscendingTimestampsWatermarks)
+- forBoundedOutOfOrderness (BoundedOutOfOrdernessWatermarks)
+
+在Java中使用的方法是：
+
+```java
+        DataStream<Salary> salaryStream = env.addSource(new SalarySource())
+                .assignTimestampsAndWatermarks(WatermarkStrategy
+                        .<Salary>forBoundedOutOfOrderness(Duration.ofDays(30 * 48)) //指定Watermark的生成方式
+                        .withTimestampAssigner((event, assigner) -> event.getPayday()) // 指定事件时间EventTime的生成方式
+                );
+```
+
+## 状态控制
+
+Flink提供自动的[状态管理](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/dev/datastream/fault-tolerance/state/)，其中主要包括：
+
+- 算子状态（Operator State）：算子状态针对整个算子方法，各个算子任务独有一个状态
+  - CheckpointFunction
+- 键值状态（Keyed State）：键值状态针对的是一个键的状态，一个算子有多个Hash键，每个键有一个键值状态
+  - ValueState<T>
+  - MapState<UK,UV>
+  - ListState<T>
+  - ReduceState<T>
+  - AggregatingState<IN,OUT>
+
+
 
 
 

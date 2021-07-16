@@ -208,7 +208,34 @@ Flink提供自动的[状态管理](https://ci.apache.org/projects/flink/flink-do
   - ReduceState<T>
   - AggregatingState<IN,OUT>
 
+```java
+    ValueState<RestrictedMap> rmap;
+    @Override
+    public void open(Configuration parameters) throws Exception {
+        this.rmap = this.getRuntimeContext().getState(
+                new ValueStateDescriptor<>("rmap", RestrictedMap.class)
+        );
+    }
+```
 
+```
+public class OperatorStateTest
+        extends KeyedProcessFunction<K, IN, OUT> implements CheckpointedFunction {
+
+    @Override
+    public void snapshotState(FunctionSnapshotContext context) throws Exception {}
+
+    @Override
+    public void initializeState(FunctionInitializationContext context) throws Exception {}
+```
+
+## 状态后端
+
+Flink的状态后端主要分为，具体的介绍详见[官方文档](https://ci.apache.org/projects/flink/flink-docs-release-1.13/zh/docs/ops/state/state_backends/)：
+
+- Memory: 状态保存到TaskManager的JVM内存中；
+- FsStateBackend: 将checkpoint保存到文件系统中，例如HDFS；对于本地状态依然保存在内存中；
+- RocksDBStateBackend: 将所有状态序列化，保存到本地的RocksDB中存储。
 
 
 

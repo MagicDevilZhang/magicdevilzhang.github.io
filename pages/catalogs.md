@@ -122,4 +122,6 @@ permalink: /notebook
 
 ## PyTorch
 
+- [PyTorch安装手册](/docs/人工智能/PyTorch/PyTorch安装手册)
 - [PyTorch使用手册](/docs/人工智能/PyTorch/PyTorch使用手册)
+

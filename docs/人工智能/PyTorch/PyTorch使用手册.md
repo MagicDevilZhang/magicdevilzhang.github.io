@@ -130,8 +130,12 @@ z = x - y  # Subtraction
 z = x * y  # Inner Product
 z = x / y  # Divide
 y = x.pow(2) # Power
-y = x.sum()  # Summation
-y = x.mean()  # Mean
+y = x.sum(axis=[0,1], keepdims=True)  # Summation
+y = x.mean(axis=[0,1], keepdims=True)  # Mean
+z = torch.dot(x, y) # Vector dot Vector, equals torch.sum(x * y)
+z = torch.mv(A, x) # Matrix dot Vector
+Z = torch.mm(A, B) # Matrix dot Matrix
+u = torch.norm(a) # L2 Normalization
 x == y  # Boolean Tensor
 ```
 
@@ -194,6 +198,17 @@ tensor([[ 2., 0.], [-2., 2.]])
 >>> import pandas as pd
 >>> data = pd.read_csv(data_file)
 >>> print(data)
+   NumRooms Alley   Price
+0       NaN  Pave  127500
+1       2.0   NaN  106000
+2       4.0   NaN  178100
+3       NaN   NaN  140000
+```
+
+- Pandas分片
+
+```
+>>> inputs, outputs = data.iloc[:, 0:2], data.iloc[:, 2]
    NumRooms Alley   Price
 0       NaN  Pave  127500
 1       2.0   NaN  106000

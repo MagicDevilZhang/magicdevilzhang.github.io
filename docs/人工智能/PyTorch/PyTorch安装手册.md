@@ -63,7 +63,7 @@ jupyter nbextensions_configurator enable --user
 
 # 安装 PyTorch
 # 镜像安装更换为 -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/win-64/
-conda install pytorch torchvision torchaudio cudatoolkit=10.2 -c pytorch
+conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c conda-forge
 ```
 
 - 设置Jupyter默认目录

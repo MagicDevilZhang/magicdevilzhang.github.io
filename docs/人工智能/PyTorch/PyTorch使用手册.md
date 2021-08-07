@@ -173,9 +173,9 @@ True
 ### 使用设备Devices
 
 ```python
-torch.cuda.is_available()
-x = x.to('cpu')
-x = x.to('cuda')
+tensor = torch.ones([3, 4]).to('cuda' torch.cuda.is_available() else 'cpu')
+model = resnet50().to('cuda' torch.cuda.is_available() else 'cpu')
+# nvidia-smi
 ```
 
 ### 计算微分Gradient

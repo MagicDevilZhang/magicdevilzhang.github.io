@@ -119,6 +119,7 @@ permalink: /notebook
 
 - [逻辑回归 Logistic Regression](/docs/人工智能/DNN理论/逻辑回归LogisticRegression)
 - [神经网络 Neural Network](/docs/人工智能/DNN理论/神经网络NeuralNetwork)
+- [卷积神经网络 Convolutional Neural Network](/docs/人工智能/DNN理论/卷积神经网络CNN)
 
 ## PyTorch
 

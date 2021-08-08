@@ -188,7 +188,15 @@ model = resnet50().to('cuda' torch.cuda.is_available() else 'cpu')
 tensor([[ 2., 0.], [-2., 2.]])
 ```
 
+## 数据转换
 
+- list 转 numpy：`ndarray = np.array(list)`
+
+- numpy 转 list: `list = ndarray.tolist()`
+- list 转 Tensor: `tensor = torch.Tensor(list)`
+- Tensor 转 list: `list = tensor.numpy().tolist()`
+- Tensor 转 numpy: `ndarray = tensor.cpu().numpy()`
+- numpy 转 Tensor: `tensor = torch.from_numpy(ndarray) `
 
 # 数据预处理
 

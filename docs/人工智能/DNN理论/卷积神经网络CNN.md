@@ -44,6 +44,58 @@ CNN常应用的范围是图片分类问题，这种问题具有一个通性，�
 
 ![image-20210807153150168](卷积神经网络CNN.assets/image-20210807153150168.png)
 
+# 优化
+
+## 数据增广 Data Augmentation
+
+为了使训练出的模型能适应不同的角度、曝光、白平衡、锐度、清晰度等图片，通常我们需要对已有的数据集进行数据增广。
+
+需要注意的是，数据的增广必须符合图片原有特征，图片的增广需要合理适当。
+
+常见的图片增广方式：
+
+- 随机放大 `transforms.RandomApply(nn.ModuleList([transforms.RandomCrop(crop_size)]), p=0.5)`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_002.png)
+
+- 左右对称 `transforms.RandomHorizontalFlip(p=0.5)`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_020.png)
+
+- 上下颠倒 `transforms.RandomVerticalFlip(p=0.5)`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_021.png)
+
+- 角度旋转 `transforms.RandomRotation(degrees=(0, 180))`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_009.png)
+
+- 随机透视 `tranforms.RandomPerspective(distortion_scale=0.6, p=1.0)`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_008.png)
+
+- 颜色抖动 `transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.2)`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_006.png)
+
+- 高斯模糊 `transforms.GaussianBlur(kernel_size=(5, 9), sigma=(0.1, 5))`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_007.png)
+
+- 锐度调节 `transforms.RandomAdjustSharpness(sharpness_factor=2)`
+
+![](https://pytorch.org/vision/stable/_images/sphx_glr_plot_transforms_016.png)
+
+PyTorch的torchvision中包含非常多的图片增广手段，可以参考[官方文档](https://pytorch.org/vision/stable/auto_examples/plot_transforms.html#pad)进行选择。
+
+## 图层叠加 Mix-up
+
+图层叠加是指将两张图片叠在一起，其label采用One-hot都标记上标签，将这样的图片代入训练往往会有不错的效果。
+
+## 预训练 Pre-trained
+
+目前包括ResNet都含有预训练参数，对于一个深度的CNN来说，越靠近输入的卷积层，其功能更在于对图片特征的提取，而靠近输出层的卷积或神经网络，其功能更抽象。对于不同的图片分类任务来说，我们只需要对高层神经元进行重新训练就可以实现模型的迁移。
+
 # 参考链接
 
 > - [李宏毅CNN讲义](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2021-course-data/cnn_v4.pdf)

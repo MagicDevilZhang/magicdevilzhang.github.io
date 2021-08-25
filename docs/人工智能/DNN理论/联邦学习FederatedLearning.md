@@ -131,9 +131,9 @@ $L_{t,k}(\theta) = L'_k(\theta) + \lambda\sum_{j\in{K/k}}(\theta-\hat{\theta}_{t
 
 ​            $\theta_{t+1}^k,F^k_{t+1} ← ClientUpdate(k, \theta_t,F_t)$​​​​​​​​​​​
 
-​       ​​​
 
-**ClientUpdate($k$​​​​, $\theta$​, $F$​​​​): **
+
+**ClientUpdate($k$​​​​​, $\theta$​​, $F$​​​​​​): **
 
 ​    $B ← (split\;P_k\;into\;batches\;of\;size\;B)$​
 
@@ -142,6 +142,60 @@ $L_{t,k}(\theta) = L'_k(\theta) + \lambda\sum_{j\in{K/k}}(\theta-\hat{\theta}_{t
 ​        for batch $b ∈ B$ do
 
 ​            $\theta = argmin(L'(\theta) + \lambda\sum_{j\in{K/k}}(\theta-\hat{\theta}_{t-1,j})^TF_{t-1,j}(\theta-\hat{\theta}_{t-1,j}))$​
+
+​    return $\theta_{t+1}^k,F^k_{t+1}$ to server 
+
+---
+
+
+
+# FedCL
+
+[FedCL](https://arxiv.org/pdf/2005.12657.pdf)是对FedCurv的改进。将FedCurv中对每个模型参数的重要性权重$F_t^k$的计算放在Server上进行，通过Proxy dataset进行估计，从而减少至少50%的通信代价。但它的问题也在于需要存有一部分Dataset在Server上用于计算$F_t^k$​，对于隐私和传输敏感的场景具有局限性。
+
+$L_{t,k}(\theta) = L'_k(\theta) + \lambda\sum_{j\in{K/k}}F_{t,k}(\theta-\hat{\theta}_{t-1,j})^2)$​​​​, where $F=\frac{1}{|D_{proxy}|}\sum_{x_k,y_k\in{D_{proxcy}}}|\frac{\partial{L(\theta_g(x_k),y_k)}}{\partial{\theta_g}}|^2$​​​​
+
+
+---
+**Server executes:**
+
+​    initialize $\theta_0$​
+
+​    for each round $t = 1, 2, . . .$​ do
+
+​        $F←\frac{1}{|D_{proxy}|}\sum_{x_k,y_k\in{D_{proxcy}}}|\frac{\partial{L(\theta_g(x_k),y_k)}}{\partial{\theta_g}}|^2$
+
+​        $m ← max(C · K, 1)$​  // a fixed set of $K$​ clients, a random fraction $C$​ of clients is selected
+
+​        $St ← (random\;set\;of\;m\;clients)$
+
+​        for each client $k ∈ St$​ in parallel do
+
+​            if $t\;mod\;N == 0$ do
+
+​                $\theta_{t+1}^k ← ClientUpdate(\theta_t, F)$​
+
+​            else
+
+​                $\theta_{t+1}^k ← ClientUpdate(\theta_t)$​
+
+​        $\theta_{t+1}← \sum_{k=1}^K(\frac{n_k}{n}\theta_{t+1}^k)$​​
+
+
+
+**ClientUpdate($\theta$, $F$): **
+
+​    if $F$ is not received then
+
+​        $F←Identity\;Metricx$
+
+​    $B ← (split\;P_k\;into\;batches\;of\;size\;B)$​
+
+​    for each local epoch $i$ from $1$ to $E$ do
+
+​        for batch $b ∈ B$ do
+
+​            $\theta = argmin(L'_k(\theta) + \lambda\sum_{j\in{K/k}}F_{t,k}(\theta-\hat{\theta}_{t-1,j})^2))$
 
 ​    return $\theta_{t+1}^k,F^k_{t+1}$ to server 
 

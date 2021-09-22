@@ -6,10 +6,9 @@ permalink: /docs/人工智能/DNN理论/神经网络NeuralNetwork
 
 # 函数Function的定义
 
-通常为了处理**非线性**问题，可以通过SVM（支持向量机）或DNN（深度神经网络）解决。
+通常为了处理**非线性**问题，可以通过Basis Function（基函数），SVM（支持向量机）或DNN（深度神经网络）解决。
 
-由于`Linear Model`太过单一，无法处理非线性问题，因此我们认为需要拟合出来的一个非线性的超平面，往往可以由一个常数和一系列激活函数（Activation
-Function）构成的超平面。例如下图中非线性曲线的函数式可以由一个常数和多个激活函数构成。
+由于`Linear Model`太过单一，无法处理非线性问题，因此我们认为需要拟合出来的一个非线性的超平面，往往可以由一个常数和一系列激活函数（Activation Function）构成的超平面。例如下图中非线性曲线的函数式可以由一个常数和多个激活函数构成。
 
 ![image-20210627114438237](神经网络NeuralNetwork.assets/image-20210627114438237.png)
 
@@ -26,8 +25,6 @@ Function）构成的超平面。例如下图中非线性曲线的函数式可以
 
 ![image-20210627114502543](神经网络NeuralNetwork.assets/image-20210627114502543.png)
 
-![](../../../imgs/2021/5/016.png)
-
 通过图示进行表示，可以写为：
 
 ![image-20210627114511113](神经网络NeuralNetwork.assets/image-20210627114511113.png)
@@ -38,17 +35,17 @@ Function）构成的超平面。例如下图中非线性曲线的函数式可以
 
 # 损失函数Loss的定义
 
-称所有的参数构成向量`$\theta$`，利用Gradient Desent对`$L(\theta)$`进行优化即可。
+称所有的参数构成向量`$\theta$`，利用Gradient Descent对`$L(\theta)$`进行优化即可。
 
 ![image-20210627114527445](神经网络NeuralNetwork.assets/image-20210627114527445.png)
 
 # 优化器Optimization的定义
 
-神经网络的梯度下降从一般化的思路来讲可以类似于线性模型，但是对于求导，具有一定的技巧（BackPropagation）。
+神经网络的梯度下降从一般化的思路来讲可以类似于线性模型，但是对于求导，具有一定的技巧（Back Propagation）。
 
 ![image-20210627114535257](神经网络NeuralNetwork.assets/image-20210627114535257.png)
 
-由于我们每次是选取数据集上某些区块的数据进行训练，因此GradientDesent又可以表示为：
+由于我们每次是选取数据集上某些区块的数据进行训练，因此Gradient Descent又可以表示为：
 
 ![image-20210627114543749](神经网络NeuralNetwork.assets/image-20210627114543749.png)
 
@@ -59,4 +56,4 @@ Function）构成的超平面。例如下图中非线性曲线的函数式可以
 > - [李宏毅机器学习2021](https://speech.ee.ntu.edu.tw/~hylee/ml/2021-spring.html)
 > - [课件PDF](https://speech.ee.ntu.edu.tw/~hylee/ml/ml2021-course-data/regression%20(v16).pdf)
 > - [视频课Bilibili](https://www.bilibili.com/video/BV1Wv411h7kN?p=3)
-> - [视频课Youtube](https://youtu.be/bHcJCp2Fyxs)
+> - [视频课YouTube](https://youtu.be/bHcJCp2Fyxs)

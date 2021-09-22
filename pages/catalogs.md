@@ -121,6 +121,13 @@ permalink: /notebook
 - [神经网络 Neural Network](/docs/人工智能/DNN理论/神经网络NeuralNetwork)
 - [卷积神经网络 Convolutional Neural Network](/docs/人工智能/DNN理论/卷积神经网络CNN)
 
+3.工程篇
+
+- [连续学习 Continual Learning](/docs/人工智能/DNN理论/连续学习ContinualLearning)
+- [联邦学习 Federated Learning](/docs/人工智能/DNN理论/联邦学习FederatedLearning)
+- 强化学习 Reinforcement Learning
+- 元学习 Meta Learning
+
 ## PyTorch
 
 - [PyTorch安装手册](/docs/人工智能/PyTorch/PyTorch安装手册)
